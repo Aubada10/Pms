@@ -24,7 +24,7 @@ class RegisterUserRequest extends FormRequest
         return [
             'name'=>'string|min:4|max:12',
             'email'=>'required|email',
-            'password'=>'required|min:8|max:10|confirmed',
+            'password'=>'required|min:8|max:10',
             'phone_number'=>'required|numeric|starts_with:09|digits:10',
             'image'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
