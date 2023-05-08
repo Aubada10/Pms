@@ -11,6 +11,7 @@ use App\Models\User;
 
 class ForgetPasswordController extends Controller
 {
+
     public function forgetPassword(ForgetPasswordRequest $request){
         $input = $request->only('email');
         $user = User::where('email',$input)->first();
