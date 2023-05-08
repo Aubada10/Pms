@@ -10,6 +10,8 @@ use App\Utils\ImageUpload;
 use Illuminate\Http\Request;
 use App\Http\Requests\Auth\RegisterUserRequest;
 use App\Http\Requests\Auth\LogInRequest;
+use App\Notifications\LogInNotification;
+
 
 
 
@@ -26,6 +28,7 @@ class AuthController extends Controller
             'phone_number'=>$request->phone_number,
             'image'=>$image,
             ]);
+            $user->notify(new LogInNotification);
         return response()->json([
             'status'=>true,
             'message'=>'User created successfully',
@@ -33,7 +36,7 @@ class AuthController extends Controller
             'token'=>$user->createToken('Api Token')->plainTextToken,
         ],200);;
     }
-    function login(LogInRequest $request)
+    public function login(LogInRequest $request)
     {
             if(!Auth::attempt($request->only(['email','password'])))
             {
@@ -51,7 +54,7 @@ class AuthController extends Controller
                 'id'=>$user->id
             ],200);
         }
-        function logout(Request $request)
+        public function logout(Request $request)
         {
             $user = $request->user();
             $user->tokens()->delete();
