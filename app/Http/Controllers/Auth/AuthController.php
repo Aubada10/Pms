@@ -19,7 +19,7 @@ use App\Helpers\ResponseFormatter;
 class AuthController extends Controller
 {
 
-    public function register_user(RegisterUserRequest $request)
+    public function admin_register(RegisterUserRequest $request)
     {
         $image = ImageUpload::imageUpload($request->image,100,200,'profile/');
         $user = User::create([
@@ -28,6 +28,28 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'phone_number'=>$request->phone_number,
             'image'=>$image,
+            'role'=>'Admin',
+            ]);
+            $user->notify(new LogInNotification);
+        return response()->json([
+            'status'=>true,
+            'message'=>'Admin created successfully',
+            'id'=>$user->id,
+            'token'=>$user->createToken('Api Token')->plainTextToken,
+        ],200);;
+    }
+
+
+    public function user_register(RegisterUserRequest $request)
+    {
+        $image = ImageUpload::imageUpload($request->image,100,200,'profile/');
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'phone_number'=>$request->phone_number,
+            'image'=>$image,
+            'role'=>'User',
             ]);
             $user->notify(new LogInNotification);
         return response()->json([
@@ -50,7 +72,10 @@ class AuthController extends Controller
                     'message' => 'Unauthorized',
                 ], 'Authentication Failed', 500);
             }
-            $user = User::where('email', $request->email,'role','admin')->first();
+            $user = User::where([
+                ['email',$request->email],
+                ['role','Admin']
+            ])->first();
             return response()->json([
                 'status'=>true,
                 'token'=>$user->createToken('Api Token')->plainTextToken,
@@ -71,7 +96,7 @@ class AuthController extends Controller
                     'message' => 'Unauthorized',
                 ], 'Authentication Failed', 500);
             }
-            $user = User::where('email', $request->email,'role','user')->first();
+            $user = User::where('email', $request->email,'role','User')->first();
             return response()->json([
                 'status'=>true,
                 'token'=>$user->createToken('Api Token')->plainTextToken,
@@ -92,7 +117,7 @@ class AuthController extends Controller
                     'message' => 'Unauthorized',
                 ], 'Authentication Failed', 500);
             }
-            $user = User::where('email', $request->email,'role','broker')->first();
+            $user = User::where('email', $request->email,'role','Broker')->first();
             return response()->json([
                 'status'=>true,
                 'token'=>$user->createToken('Api Token')->plainTextToken,

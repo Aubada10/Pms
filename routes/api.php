@@ -20,8 +20,13 @@ use App\Http\Controllers\Auth\ForgetPasswordController;
 /*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });*/
-Route::post('/register_user',[AuthController::class,'register_user']);
-Route::post('/login',[AuthController::class,'login']);
+Route::post('/user_register',[AuthController::class,'user_register']);
+Route::post('admin/register',[AuthController::class,'admin_register']);
+
+
+Route::post('admin/login',[AuthController::class,'admin_login']);
+Route::post('/login',[AuthController::class,'user_login']);
+Route::post('broker/login',[AuthController::class,'broker_login']);
 
 Route::post('/password/forget-password',[ForgetPasswordController::class,'forgetPassword']);
 Route::post('/password/reset-password',[ResetPasswordController::class,'resetPassword']);
