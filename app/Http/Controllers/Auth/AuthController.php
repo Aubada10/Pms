@@ -37,11 +37,11 @@ class AuthController extends Controller
             'token'=>$user->createToken('Api Token')->plainTextToken,
         ],200);;
     }
-    public function login(LogInRequest $request)
+    public function admin_login(LogInRequest $request)
     {
             if(!Auth::attempt($request->only(['email','password'])))
             {
-               /* return response()->json([
+                /* return response()->json([
                     'status'=>false,
                     'message'=>'email or password does not match ,',
                     ''=>$request->errors(),
@@ -50,7 +50,49 @@ class AuthController extends Controller
                     'message' => 'Unauthorized',
                 ], 'Authentication Failed', 500);
             }
-            $user = User::where('email', $request->email)->first();
+            $user = User::where('email', $request->email,'role','admin')->first();
+            return response()->json([
+                'status'=>true,
+                'token'=>$user->createToken('Api Token')->plainTextToken,
+                'role'=>$user->role,
+                'id'=>$user->id
+            ],200);
+        }
+        public function user_login(LogInRequest $request)
+    {
+            if(!Auth::attempt($request->only(['email','password'])))
+            {
+                /* return response()->json([
+                    'status'=>false,
+                    'message'=>'email or password does not match ,',
+                    ''=>$request->errors(),
+                ],401);*/
+                return ResponseFormatter::error([
+                    'message' => 'Unauthorized',
+                ], 'Authentication Failed', 500);
+            }
+            $user = User::where('email', $request->email,'role','user')->first();
+            return response()->json([
+                'status'=>true,
+                'token'=>$user->createToken('Api Token')->plainTextToken,
+                'role'=>$user->role,
+                'id'=>$user->id
+            ],200);
+        }
+        public function broker_login(LogInRequest $request)
+    {
+            if(!Auth::attempt($request->only(['email','password'])))
+            {
+                /* return response()->json([
+                    'status'=>false,
+                    'message'=>'email or password does not match ,',
+                    ''=>$request->errors(),
+                ],401);*/
+                return ResponseFormatter::error([
+                    'message' => 'Unauthorized',
+                ], 'Authentication Failed', 500);
+            }
+            $user = User::where('email', $request->email,'role','broker')->first();
             return response()->json([
                 'status'=>true,
                 'token'=>$user->createToken('Api Token')->plainTextToken,
