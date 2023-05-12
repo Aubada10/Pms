@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Auth\RegisterUserRequest;
 use App\Http\Requests\Auth\LogInRequest;
 use App\Notifications\LogInNotification;
+use App\Helpers\ResponseFormatter;
 
 
 
@@ -40,11 +41,14 @@ class AuthController extends Controller
     {
             if(!Auth::attempt($request->only(['email','password'])))
             {
-                return response()->json([
+               /* return response()->json([
                     'status'=>false,
                     'message'=>'email or password does not match ,',
                     ''=>$request->errors(),
-                ],401);
+                ],401);*/
+                return ResponseFormatter::error([
+                    'message' => 'Unauthorized',
+                ], 'Authentication Failed', 500);
             }
             $user = User::where('email', $request->email)->first();
             return response()->json([
