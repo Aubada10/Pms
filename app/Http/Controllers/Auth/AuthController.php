@@ -42,7 +42,11 @@ class AuthController extends Controller
 
     public function user_register(RegisterUserRequest $request)
     {
-        $image = ImageUpload::imageUpload($request->image,100,200,'profile/');
+        $image=null;
+        if($request->has('image'))
+        {
+            $image = ImageUpload::imageUpload($request->image,100,200,'profile/');
+        }
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -96,7 +100,10 @@ class AuthController extends Controller
                     'message' => 'Unauthorized',
                 ], 'Authentication Failed', 500);
             }
-            $user = User::where('email', $request->email,'role','User')->first();
+            $user = User::where([
+                ['email',$request->email],
+                ['role','User']
+            ])->first();
             return response()->json([
                 'status'=>true,
                 'token'=>$user->createToken('Api Token')->plainTextToken,
