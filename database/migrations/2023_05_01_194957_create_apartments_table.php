@@ -25,12 +25,11 @@ return new class extends Migration
             $table->string('room_number');
             $table->string('bathrooms');
             $table->string('cladding');
-            $table->string('floor');
+            $table->string('floor_number');
             $table->string('property')->nullable();
             $table->string('renting_period')->nullable();
             $table->enum('type',['renting','selling']);
-            $table->float('rating')->default(0);
-            $table->string('contact_information');
+            $table->string('phone_number');
             $table->timestamps();
         });
     }

@@ -86,7 +86,7 @@ class ApartmentsDraftController extends Controller
             //response
             return response()->json([
                 'status' => 1,
-                'message' => 'apartment draft deletede successfully',
+                'message' => 'apartment draft deleted successfully',
             ]);
         }else{
             //response
@@ -125,7 +125,7 @@ class ApartmentsDraftController extends Controller
         $apartmentDraft = ApartmentDraft::find($id);
         if($apartmentDraft->type === 'renting'){
             if($apartmentDraft->photo != null && $apartmentDraft->size != null && $apartmentDraft->location != null && $apartmentDraft->price != null && $apartmentDraft->view != null && $apartmentDraft->room_number != null && $apartmentDraft->bathrooms != null && $apartmentDraft->cladding != null && $apartmentDraft->floor != null && $apartmentDraft->property == null && $apartmentDraft->renting_period != null && $apartmentDraft->contact_information != null ){
-                $apartment = Apartments::create([
+                $apartmentDraft = ApartmentDraft::create([
                     'photo' => $apartmentDraft->photo,
                     'size' => $apartmentDraft->size,
                     'location' => $apartmentDraft->location,
@@ -146,7 +146,7 @@ class ApartmentsDraftController extends Controller
                 return response()->json([
                     'status' => 1,
                     'message' => 'appartment published created successfully',
-                    'data' => $apartment
+                    'data' => $apartmentDraft
                 ]);
             }
 
@@ -157,7 +157,7 @@ class ApartmentsDraftController extends Controller
             ]);
         }else{
             if($apartmentDraft->photo != null && $apartmentDraft->size != null && $apartmentDraft->location != null && $apartmentDraft->price != null && $apartmentDraft->view != null && $apartmentDraft->room_number != null && $apartmentDraft->bathrooms != null && $apartmentDraft->cladding != null && $apartmentDraft->floor != null && $apartmentDraft->property != null && $apartmentDraft->renting_period == null && $apartmentDraft->contact_information != null ){
-                $apartment = Apartments::create([
+                $apartment = ApartmentDraft::create([
                     'photo' => $apartmentDraft->photo,
                     'size' => $apartmentDraft->size,
                     'location' => $apartmentDraft->location,

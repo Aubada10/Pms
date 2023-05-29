@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
-class Apartments extends Model
+class Apartment extends Model
 {
     use HasFactory;
 
@@ -22,12 +22,12 @@ class Apartments extends Model
         'room_number',
         'bathrooms',
         'cladding',
-        'floore',
+        'floor_number',
         'property',
         'renting_period',
         'type',
         'rating',
-        'contact_information'
+        'phone_number'
     ];
     public function user(){
         return $this->belongsTo(User::class,'user_id');
