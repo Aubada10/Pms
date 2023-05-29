@@ -27,7 +27,7 @@ class ApartmentsController extends Controller
             'property' =>$request->property ,
             'renting_period' =>$request->renting_period ,
             'type' =>$request->type,
-            'contact_information' =>$request->phone_number,
+            'phone_number' =>$request->phone_number,
             'user_id' => auth()->user()->id,
             'office_id' =>$office_id,
         ]);
@@ -52,7 +52,7 @@ class ApartmentsController extends Controller
             $Apartment->bathrooms = isset($request->bathrooms) ? $request->bathrooms : $Apartment->bathrooms ;
             $Apartment->cladding = isset($request->cladding) ? $request->cladding : $Apartment->cladding ;
             $Apartment->floor = isset($request->floor) ? $request->floor : $Apartment->floor ;
-            $Apartment->contact_information = isset($request->contact_information) ? $request->contact_information : $Apartment->phone_number ;
+            $Apartment->phone_number = isset($request->phone_number) ? $request->phone_number : $Apartment->phone_number ;
             $Apartment->property =  isset($request->property) ? $request->property : $Apartment->property;
             $Apartment->renting_period =  isset($request->renting_period) ? $request->renting_period : $Apartment->renting_period;
             $Apartment->type =  isset($request->type) ? $request->type: $Apartment->type;
@@ -136,7 +136,7 @@ class ApartmentsController extends Controller
                     'floor'=>$apartment->floor,
                     'renting_period' => $apartment->renting_period,
                     'type' => $apartment->type,
-                    'contact_information' => $apartment->contact_information,
+                    'phone_number' => $apartment->phone_number,
                     'user_id' => auth()->user()->id,
                     'office_id' =>$apartment->office_id
                 ]);
@@ -155,7 +155,7 @@ class ApartmentsController extends Controller
                 'message' => 'apartment is missing data',
             ]);
         }else{
-            if($apartment->photo != null && $apartment->size != null && $apartment->location != null && $apartment->price != null && $apartment->view != null && $apartment->room_number != null && $apartment->bathrooms != null && $apartment->cladding != null && $apartment->floor != null && $apartment->property != null && $apartment->renting_period == null && $apartment->contact_information != null ){
+            if($apartment->photo != null && $apartment->size != null && $apartment->location != null && $apartment->price != null && $apartment->view != null && $apartment->room_number != null && $apartment->bathrooms != null && $apartment->cladding != null && $apartment->floor != null && $apartment->property != null && $apartment->renting_period == null && $apartment->phone_number != null ){
                 $apartment = Apartment::create([
                     'photo' => $apartment->photo,
                     'size' => $apartment->size,
@@ -168,7 +168,7 @@ class ApartmentsController extends Controller
                     'floor'=>$apartment->floor,
                     'property' => $apartment->property,
                     'type' => $apartment->type,
-                    'contact_information' => $apartment->contact_information,
+                    'phone_number' => $apartment->phone_number,
                     'user_id' => auth()->user()->id,
                     'office_id' =>$apartment->office_id,
                 ]);
