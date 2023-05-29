@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\ApartmentDraft;
-use App\Models\Apartments;
+use App\Models\Apartment;
 use Illuminate\Http\Request;
 
 class ApartmentsDraftController extends Controller
 {
-     /**
-     * create shop draft
-     */
     public function create(Request $request, $office_id){
         //create
         $apartmentDraft = ApartmentDraft::create([
@@ -22,12 +19,12 @@ class ApartmentsDraftController extends Controller
             'room_number'=>isset($request->room_number)? $request->room_number :null,
             'bathrooms'=>isset($request->bathrooms)? $request->bathrooms:null,
             'cladding'=>isset($request->cladding)?$request->cladding:null,
-            'floor'=>isset($request->floor)? $request->floor:null,
+            'floor_number'=>isset($request->floor_number)? $request->floor_number:null,
             'property' => isset($request->property) ? $request->property : null,
             'renting_period' => isset($request->renting_period) ? $request->renting_period : null,
             'type' => isset($request->type) ? $request->type: null,
-            'contact_information' => isset($request->contact_information) ? $request->contact_information : null,
-            'user_id' => 1 ,//auth()->user()->id
+            'phone_number' => isset($request->phone_number) ? $request->phone_number : null,
+            'user_id' => auth()->user()->id,
             'office_id' =>$office_id
         ]);
         //response
@@ -41,7 +38,7 @@ class ApartmentsDraftController extends Controller
     public function update(Request $request, $id){
 
         if(ApartmentDraft::where([
-            'user_id' => 1, /*auth()->user()->id*/
+            'user_id' => auth()->user()->id,
             'id' => $id
         ])->exists()){
             $ApartmentDraft = ApartmentDraft::find($id);
@@ -53,15 +50,15 @@ class ApartmentsDraftController extends Controller
             $ApartmentDraft->room_number = isset($request->room_number) ? $request->room_number : $ApartmentDraft->room_number ;
             $ApartmentDraft->bathrooms = isset($request->bathrooms) ? $request->bathrooms : $ApartmentDraft->bathrooms ;
             $ApartmentDraft->cladding = isset($request->cladding) ? $request->cladding : $ApartmentDraft->cladding ;
-            $ApartmentDraft->floor = isset($request->floor) ? $request->floor : $ApartmentDraft->floor ;
-            $ApartmentDraft->contact_information = isset($request->contact_information) ? $request->contact_information : $ApartmentDraft->contact_information ;
+            $ApartmentDraft->floor_number = isset($request->floor_number) ? $request->floor_number : $ApartmentDraft->floor_number ;
+            $ApartmentDraft->phone_number = isset($request->phone_number) ? $request->phone_number : $ApartmentDraft->phone_number ;
             $ApartmentDraft->property =  isset($request->property) ? $request->property : $ApartmentDraft->property;
             $ApartmentDraft->renting_period =  isset($request->renting_period) ? $request->renting_period : $ApartmentDraft->renting_period;
             $ApartmentDraft->type =  isset($request->type) ? $request->type: $ApartmentDraft->type;
             $ApartmentDraft->save();
 
             //response
-             return response()->json([
+            return response()->json([
                 'status' => 1,
                 'message' => 'apartment draft updated successfully',
             ]);
@@ -77,7 +74,7 @@ class ApartmentsDraftController extends Controller
 
     public function delete($id){
         if(ApartmentDraft::where([
-            'user_id' => 1, /*auth()->user()->id*/
+            'user_id' => auth()->user()->id,
             'id' => $id
         ])->exists()){
             $apartmentDraft = ApartmentDraft::find($id);
@@ -124,8 +121,8 @@ class ApartmentsDraftController extends Controller
         //don't forget the authontication
         $apartmentDraft = ApartmentDraft::find($id);
         if($apartmentDraft->type === 'renting'){
-            if($apartmentDraft->photo != null && $apartmentDraft->size != null && $apartmentDraft->location != null && $apartmentDraft->price != null && $apartmentDraft->view != null && $apartmentDraft->room_number != null && $apartmentDraft->bathrooms != null && $apartmentDraft->cladding != null && $apartmentDraft->floor != null && $apartmentDraft->property == null && $apartmentDraft->renting_period != null && $apartmentDraft->contact_information != null ){
-                $apartmentDraft = ApartmentDraft::create([
+            if($apartmentDraft->photo != null && $apartmentDraft->size != null && $apartmentDraft->location != null && $apartmentDraft->price != null && $apartmentDraft->view != null && $apartmentDraft->room_number != null && $apartmentDraft->bathrooms != null && $apartmentDraft->cladding != null && $apartmentDraft->floor_number != null && $apartmentDraft->property == null && $apartmentDraft->renting_period != null && $apartmentDraft->phone_number != null ){
+                $apartment = Apartment::create([
                     'photo' => $apartmentDraft->photo,
                     'size' => $apartmentDraft->size,
                     'location' => $apartmentDraft->location,
@@ -134,10 +131,10 @@ class ApartmentsDraftController extends Controller
                     'room_number'=>$apartmentDraft->room_number,
                     'bathrooms'=>$apartmentDraft->bathrooms,
                     'cladding'=>$apartmentDraft->cladding,
-                    'floor'=>$apartmentDraft->floor,
+                    'floor_number'=>$apartmentDraft->floor_number,
                     'renting_period' => $apartmentDraft->renting_period,
                     'type' => $apartmentDraft->type,
-                    'contact_information' => $apartmentDraft->contact_information,
+                    'phone_number' => $apartmentDraft->phone_number,
                     'user_id' => 1 ,//auth()->user()->id
                     'office_id' =>$apartmentDraft->office_id
                 ]);
@@ -146,7 +143,7 @@ class ApartmentsDraftController extends Controller
                 return response()->json([
                     'status' => 1,
                     'message' => 'appartment published created successfully',
-                    'data' => $apartmentDraft
+                    'data' => $apartment
                 ]);
             }
 
@@ -156,8 +153,8 @@ class ApartmentsDraftController extends Controller
                 'message' => 'apartment draft is missing data',
             ]);
         }else{
-            if($apartmentDraft->photo != null && $apartmentDraft->size != null && $apartmentDraft->location != null && $apartmentDraft->price != null && $apartmentDraft->view != null && $apartmentDraft->room_number != null && $apartmentDraft->bathrooms != null && $apartmentDraft->cladding != null && $apartmentDraft->floor != null && $apartmentDraft->property != null && $apartmentDraft->renting_period == null && $apartmentDraft->contact_information != null ){
-                $apartment = ApartmentDraft::create([
+            if($apartmentDraft->photo != null && $apartmentDraft->size != null && $apartmentDraft->location != null && $apartmentDraft->price != null && $apartmentDraft->view != null && $apartmentDraft->room_number != null && $apartmentDraft->bathrooms != null && $apartmentDraft->cladding != null && $apartmentDraft->floor_number != null && $apartmentDraft->property != null && $apartmentDraft->renting_period == null && $apartmentDraft->phone_number != null ){
+                $apartment = Apartment::create([
                     'photo' => $apartmentDraft->photo,
                     'size' => $apartmentDraft->size,
                     'location' => $apartmentDraft->location,
@@ -166,10 +163,10 @@ class ApartmentsDraftController extends Controller
                     'room_number'=>$apartmentDraft->room_number,
                     'bathrooms'=>$apartmentDraft->bathrooms,
                     'cladding'=>$apartmentDraft->cladding,
-                    'floor'=>$apartmentDraft->floor,
+                    'floor_number'=>$apartmentDraft->floor_number,
                     'property' => $apartmentDraft->property,
                     'type' => $apartmentDraft->type,
-                    'contact_information' => $apartmentDraft->contact_information,
+                    'phone_number' => $apartmentDraft->phone_number,
                     'user_id' => 1 ,//auth()->user()->id
                     'office_id' =>$apartmentDraft->office_id
                 ]);
