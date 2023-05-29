@@ -23,7 +23,7 @@ class ApartmentsController extends Controller
             'room_number'=>$request->room_number ,
             'bathrooms'=>$request->bathrooms,
             'cladding'=>$request->cladding,
-            'floor'=>$request->floor,
+            'floor_number'=>$request->floor_number,
             'property' =>$request->property ,
             'renting_period' =>$request->renting_period ,
             'type' =>$request->type,
@@ -51,7 +51,7 @@ class ApartmentsController extends Controller
             $Apartment->room_number = isset($request->room_number) ? $request->room_number : $Apartment->room_number ;
             $Apartment->bathrooms = isset($request->bathrooms) ? $request->bathrooms : $Apartment->bathrooms ;
             $Apartment->cladding = isset($request->cladding) ? $request->cladding : $Apartment->cladding ;
-            $Apartment->floor = isset($request->floor) ? $request->floor : $Apartment->floor ;
+            $Apartment->floor_number = isset($request->floor_number) ? $request->floor_number : $Apartment->floor_number ;
             $Apartment->phone_number = isset($request->phone_number) ? $request->phone_number : $Apartment->phone_number ;
             $Apartment->property =  isset($request->property) ? $request->property : $Apartment->property;
             $Apartment->renting_period =  isset($request->renting_period) ? $request->renting_period : $Apartment->renting_period;
@@ -72,7 +72,6 @@ class ApartmentsController extends Controller
             ]);
         }
     }
-
     public function delete($id){
         if(Apartment::where([auth()->user()->id,'id' => $id])
             ->exists())
@@ -96,7 +95,6 @@ class ApartmentsController extends Controller
             ]);
         }
     }
-
     public function show($id)
     {
         if(Apartment::where(['id' => $id
@@ -119,11 +117,11 @@ class ApartmentsController extends Controller
     /**
      * publish an apartment from  to apartments table
      */
-    public function publish($id){
+    /*public function publish($id){
         //don't forget the authontication
         $apartment = Apartment::find($id);
         if($apartment->type === 'renting'){
-            if($apartment->photo != null && $apartment->size != null && $apartment->location != null && $apartment->price != null && $apartment->view != null && $apartment->room_number != null && $apartment->bathrooms != null && $apartment->cladding != null && $apartment->floor != null && $apartment->property == null && $apartment->renting_period != null && $apartment->phone_number != null ){
+            if($apartment->photo != null && $apartment->size != null && $apartment->location != null && $apartment->price != null && $apartment->view != null && $apartment->room_number != null && $apartment->bathrooms != null && $apartment->cladding != null && $apartment->floor_number != null && $apartment->property == null && $apartment->renting_period != null && $apartment->phone_number != null ){
                 $apartment = Apartment::create([
                     'photo' => $apartment->photo,
                     'size' => $apartment->size,
@@ -133,7 +131,7 @@ class ApartmentsController extends Controller
                     'room_number'=>$apartment->room_number,
                     'bathrooms'=>$apartment->bathrooms,
                     'cladding'=>$apartment->cladding,
-                    'floor'=>$apartment->floor,
+                    'floor_number'=>$apartment->floor_number,
                     'renting_period' => $apartment->renting_period,
                     'type' => $apartment->type,
                     'phone_number' => $apartment->phone_number,
@@ -155,7 +153,7 @@ class ApartmentsController extends Controller
                 'message' => 'apartment is missing data',
             ]);
         }else{
-            if($apartment->photo != null && $apartment->size != null && $apartment->location != null && $apartment->price != null && $apartment->view != null && $apartment->room_number != null && $apartment->bathrooms != null && $apartment->cladding != null && $apartment->floor != null && $apartment->property != null && $apartment->renting_period == null && $apartment->phone_number != null ){
+            if($apartment->photo != null && $apartment->size != null && $apartment->location != null && $apartment->price != null && $apartment->view != null && $apartment->room_number != null && $apartment->bathrooms != null && $apartment->cladding != null && $apartment->floor_number != null && $apartment->property != null && $apartment->renting_period == null && $apartment->phone_number != null ){
                 $apartment = Apartment::create([
                     'photo' => $apartment->photo,
                     'size' => $apartment->size,
@@ -165,7 +163,7 @@ class ApartmentsController extends Controller
                     'room_number'=>$apartment->room_number,
                     'bathrooms'=>$apartment->bathrooms,
                     'cladding'=>$apartment->cladding,
-                    'floor'=>$apartment->floor,
+                    'floor_number'=>$apartment->floor_number,
                     'property' => $apartment->property,
                     'type' => $apartment->type,
                     'phone_number' => $apartment->phone_number,
@@ -187,6 +185,6 @@ class ApartmentsController extends Controller
                 'message' => 'apartment  is missing data',
             ]);
         }
-    }
+    }*/
 
 }
