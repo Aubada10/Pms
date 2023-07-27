@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ConfirmCodeController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
+use App\Http\Controllers\Dashboard\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,4 +37,12 @@ Route::post('/password/reset_password',[ResetPasswordController::class,'reset_pa
 Route::middleware(['auth:sanctum'])->group(function() {
     Route::post('/logout',[AuthController::class,'logout']);
 });
+Route::group(['middleware' => ['auth', 'admin']], function () {
+    Route::get('/dashboard/counts',[HomeController::class,'counts']);
+    Route::get('/dashboard/users',[HomeController::class,'get_users']);
+});
 
+
+
+// Route::get('/dashboard/counts',[HomeController::class,'counts']);
+// Route::get('/dashboard/users',[HomeController::class,'get_users']);

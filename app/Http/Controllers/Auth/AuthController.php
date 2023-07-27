@@ -21,13 +21,12 @@ class AuthController extends Controller
 
     public function admin_register(RegisterUserRequest $request)
     {
-        $image = ImageUpload::imageUpload($request->image,100,200,'profile/');
+        //$image = ImageUpload::imageUpload($request->image,100,200,'profile/');
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone_number'=>$request->phone_number,
-            'image'=>$image,
             'role'=>'Admin',
             ]);
             $user->notify(new LogInNotification);
