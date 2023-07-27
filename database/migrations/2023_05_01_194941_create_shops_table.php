@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('size')->unsigned();
             $table->string('location');
             $table->integer('price')->unsigned();
+            $table->string('status')->default('pending');
             $table->string('property')->nullable();
             $table->string('renting_period')->nullable();
             $table->enum('type',['renting','selling']);
