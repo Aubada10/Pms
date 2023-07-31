@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ConfirmCodeController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,11 +39,16 @@ Route::middleware(['auth:sanctum'])->group(function() {
     Route::post('/logout',[AuthController::class,'logout']);
 });
 Route::group(['middleware' => ['auth', 'admin']], function () {
-    Route::get('/dashboard/counts',[HomeController::class,'counts']);
-    Route::get('/dashboard/users',[HomeController::class,'get_users']);
+    //Route::get('/dashboard/counts',[HomeController::class,'index']);
+    //Route::get('/dashboard/users',[UsersController::class,'get_users']);
+
 });
+Route::resource('dashboard/users', UserController::class);
+Route::resource('dashboard/lands', LandController::class);
+Route::resource('dashboard/shops', ShopController::class);
+Route::resource('dashboard/apartments', ApartmentController::class);
+Route::resource('dashboard/brokers', ApartmentController::class);
 
 
-
-// Route::get('/dashboard/counts',[HomeController::class,'counts']);
-// Route::get('/dashboard/users',[HomeController::class,'get_users']);
+Route::get('/dashboard/counts',[HomeController::class,'index']);
+//Route::get('/dashboard/users',[HomeController::class,'get_users']);

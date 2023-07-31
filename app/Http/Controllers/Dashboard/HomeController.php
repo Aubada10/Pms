@@ -3,35 +3,34 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Apartment;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Land;
+use App\Models\Shop;
 
 class HomeController extends Controller
 {
-    public function counts(){
+    public function index(){
         $users=User::where('role','=','User')->get()->count();
         $admins=User::where('role','=','Admin')->get()->count();
         $brokers=User::where('role','=','Broker')->get()->count();
-        $lands=0;
-        $apartments=0;
-        $shops=0;
+        //$lands=Land::all()->count();
+        $shops=Shop::all()->count();
+        $apartments=Apartment::all()->count();
+        $counts=[
+    ['users' => $users],
+    ['admins' => $admins],
+    ['brokers' => $brokers],
+    ['lands' => 0],
+    ['apartments'=> $apartments],
+    ['shops' => $shops],
+];
 
-        return response()->json([
-            'status'=>true,
-            'data'=>[
-                'users'=>$users,
-                'admins'=>$admins,
-                'brokers'=>$brokers,
-                'lands'=>$lands,
-                'apartments'=>$apartments,
-                'shops'=>$shops,
-            ]
-        ]);
+    return response()->json([
+        'status'=>true,
+        'data'=>$counts
+    ]);
     }
-    public function get_users(){
-        $users=User::all();
-        return response()->json([
-            'data'=>$users
-        ]);
-    }
+
 }
