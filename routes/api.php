@@ -8,6 +8,10 @@ use App\Http\Controllers\Auth\ConfirmCodeController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\LandController;
+use App\Http\Controllers\Dashboard\ShopController;
+use App\Http\Controllers\Dashboard\SettingController;
+use App\Http\Controllers\Dashboard\ApartmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,3 +56,5 @@ Route::resource('dashboard/brokers', ApartmentController::class);
 
 Route::get('/dashboard/counts',[HomeController::class,'index']);
 //Route::get('/dashboard/users',[HomeController::class,'get_users']);
+Route::get('/dashboard/settings',[SettingController::class,'index']);
+Route::post('/dashboard/settings/{id}',[SettingController::class,'edit']);

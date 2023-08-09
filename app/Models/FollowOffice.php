@@ -6,19 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
-class Land extends Model
+class FollowOffice extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'id',
-        'user_id',
         'office_id',
-        'size',
-        'location',
-        'price',
-        'property',
-        'contact_information'
+        'user_id'
     ];
 
     public function user(){

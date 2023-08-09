@@ -13,17 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('shops', function (Blueprint $table) {
+        Schema::create('lands', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constraint('users')->cascadeOnDelete();
             $table->foreignId('office_id')->nullable()->constraint('offices')->nullOnDelete();
-            $table->string('photo');
             $table->integer('size')->unsigned();
             $table->string('location');
             $table->integer('price')->unsigned();
             $table->string('property')->nullable();
-            $table->string('renting_period')->nullable();
-            $table->enum('type',['renting','selling']);
             $table->string('contact_information');
             $table->timestamps();
         });
@@ -36,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shops');
+        Schema::dropIfExists('lands');
     }
 };
