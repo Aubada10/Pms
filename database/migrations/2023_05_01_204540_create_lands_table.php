@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('office_id')->nullable()->constraint('offices')->nullOnDelete();
             $table->integer('size')->unsigned();
             $table->string('location');
+            $table->enum('status',['pending','approved','rejected'])->default('pending');
             $table->integer('price')->unsigned();
             $table->string('property')->nullable();
             $table->string('contact_information');

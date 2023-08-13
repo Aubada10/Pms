@@ -110,7 +110,7 @@ class AuthController extends Controller
                 'id'=>$user->id
             ],200);
         }
-        public function broker_login(LogInRequest $request)
+      /*  public function broker_login(LogInRequest $request)
     {
             if(!Auth::attempt($request->only(['email','password'])))
             {
@@ -118,7 +118,7 @@ class AuthController extends Controller
                     'status'=>false,
                     'message'=>'email or password does not match ,',
                     ''=>$request->errors(),
-                ],401);*/
+                ],401);
                 return ResponseFormatter::error([
                     'message' => 'Unauthorized',
                 ], 'Authentication Failed', 500);
@@ -130,7 +130,7 @@ class AuthController extends Controller
                 'role'=>$user->role,
                 'id'=>$user->id
             ],200);
-        }
+        }*/
         public function logout(Request $request)
         {
             $user = $request->user();

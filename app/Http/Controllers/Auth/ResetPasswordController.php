@@ -11,7 +11,8 @@ use App\Models\User;
 class ResetPasswordController extends Controller
 {
     public function __construct(){}
-    public function resetPassword(ResetPasswordRequest $request,$email){
+    public function reset_password(ResetPasswordRequest $request){
+        $email=$request->email;
         $user = User::where('email',$email)->first();
         $user->update(['password'=>Hash::make($request->password)]);
         $user->tokens()->delete();

@@ -5,19 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\ApartmentDraft;
 use Illuminate\Http\Request;
 use App\Models\Office;
+use App\Http\Requests\OfficeRequest;
+
 
 class OfficeController extends Controller
 {
     /**
      * create an office
      */
-    public function create(Request $request){
-        //validation
-        $request->validate([
-            'name'=>'required',
-            'address'=>'required',
-            'phone_number'=>'required'
-        ]);
+    public function store/*create*/(OfficeRequest $request){
         //check if the user has already an office
         if(Office::where('user_id' ,auth()->user()->id)->exists()){
             //response
@@ -35,8 +31,8 @@ class OfficeController extends Controller
          $path="/uploads";
         if(Office::where('name' , '=' , $request->name)->exists()){
             return response()->json([
-                'seccuse'=>false,
-                'massege'=>'office_name is already exist , please change the name'
+                'succuss'=>false,
+                'message'=>'office_name is already exist , please change the name'
             ],200);
         }
         //create office
@@ -147,11 +143,11 @@ class OfficeController extends Controller
      */
     public function shopsDraft(){
         $office = Office::where('user_id', '=',  auth()->user()->id)->first();
-        $shopssDraft = $office->shopsDraft;
+        $shopsDraft = $office->shopsDraft;
         //response
         return response()->json([
             'status' => 1,
-            'data' => $shopssDraft
+            'data' => $shopsDraft
         ]);
     }
 
@@ -159,7 +155,7 @@ class OfficeController extends Controller
      * List all offices
      */
 
-    public function listOffices(){
+    public function index/*listOffices*/(){
         $offices = Office::orderBy('name', 'ASC')->get();
         //response
         return response()->json([
@@ -190,7 +186,7 @@ class OfficeController extends Controller
         //response
         return response()->json([
             'status' => 1,
-            'message' => 'office rated succefully'
+            'message' => 'office rated successfully'
         ]);
     }
 }

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('bathrooms');
             $table->string('cladding');
             $table->string('floor');
+            $table->enum('status',['pending','approved','rejected'])->default('pending');
             $table->string('property')->nullable();
             $table->string('renting_period')->nullable();
             $table->enum('type',['renting','selling']);

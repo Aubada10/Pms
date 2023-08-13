@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('photo');
             $table->integer('size')->unsigned();
             $table->string('location');
+            $table->enum('status',['pending','approved','rejected'])->default('pending');
             $table->integer('price')->unsigned();
             $table->string('property')->nullable();
             $table->string('renting_period')->nullable();

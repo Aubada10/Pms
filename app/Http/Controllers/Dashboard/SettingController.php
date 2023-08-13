@@ -23,7 +23,7 @@ class SettingController extends Controller
     public function edit(Request $request, $id)
     {
         $setting = Setting::where('id', '=', $id)->first();
-        $logo = ImageUpload::imageUpload($request->logo, 100, 100, 'logo/');
+        $logo = ImageUpload::imageUpload($request->logo, 100, 100, '/logo/');
         $setting->update([
             'logo' => $logo,
             'name' => $request->name

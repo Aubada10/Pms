@@ -7,7 +7,7 @@ use App\Models\Notification;
 use App\Models\Office;
 use Illuminate\Http\Request;
 use App\Models\ShopDraft;
-use App\Models\Shops;
+use App\Models\Shop;
 
 class ShopsDraftController extends Controller
 {
@@ -141,7 +141,7 @@ class ShopsDraftController extends Controller
         if($office->id == $shopDraft->office_id) {
             if ($shopDraft->type === 'renting') {
                 if ($shopDraft->size != null && $shopDraft->location != null && $shopDraft->price != null && $shopDraft->property == null && $shopDraft->renting_period != null && $shopDraft->contact_information != null && $shopDraft->photo != null) {
-                    $shop = Shops::create([
+                    $shop = Shop::create([
                         'photo' => $shopDraft->photo,
                         'size' => $shopDraft->size,
                         'location' => $shopDraft->location,
@@ -176,7 +176,7 @@ class ShopsDraftController extends Controller
                 ]);
             } else {
                 if ($shopDraft->size != null && $shopDraft->location != null && $shopDraft->price != null && $shopDraft->property != null && $shopDraft->renting_period == null && $shopDraft->contact_information != null && $shopDraft->photo != null) {
-                    $shop = Shops::create([
+                    $shop = Shop::create([
                         'photo' => $shopDraft->photo,
                         'size' => $shopDraft->size,
                         'location' => $shopDraft->location,

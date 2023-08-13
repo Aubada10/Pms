@@ -12,7 +12,8 @@ use App\Http\Controllers\Dashboard\LandController;
 use App\Http\Controllers\Dashboard\ShopController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\ApartmentController;
-
+use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\Dashboard\OfficeManagementController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -42,19 +43,20 @@ Route::post('/password/reset_password',[ResetPasswordController::class,'reset_pa
 Route::middleware(['auth:sanctum'])->group(function() {
     Route::post('/logout',[AuthController::class,'logout']);
 });
-Route::group(['middleware' => ['auth', 'admin']], function () {
+Route::group(['middleware' => ['auth']], function () {
     //Route::get('/dashboard/counts',[HomeController::class,'index']);
     //Route::get('/dashboard/users',[UsersController::class,'get_users']);
+    Route::get('/dashboard/settings',[SettingController::class,'index']);
 
 });
 Route::resource('dashboard/users', UserController::class);
 Route::resource('dashboard/lands', LandController::class);
 Route::resource('dashboard/shops', ShopController::class);
 Route::resource('dashboard/apartments', ApartmentController::class);
-Route::resource('dashboard/brokers', ApartmentController::class);
+Route::resource('/offices', OfficeController::class);
 
 
 Route::get('/dashboard/counts',[HomeController::class,'index']);
 //Route::get('/dashboard/users',[HomeController::class,'get_users']);
-Route::get('/dashboard/settings',[SettingController::class,'index']);
 Route::post('/dashboard/settings/{id}',[SettingController::class,'edit']);
+//Route::get('/dashboard/settings',[SettingController::class,'index']);

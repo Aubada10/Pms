@@ -1,17 +1,23 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
 use App\Utils\ImageUpload;
 
-class ApartmentsController extends Controller
+class ApartmentController extends Controller
 {
-     /**
-     * create apartment
-     */
+    public function index(){
+        $apartments=Apartment::all();
+        return response()->json([
+            'status'=>true,
+            'data'=>$apartments
+        ]);
+    }
     public function create(CreateApartmentRequest $request, $office_id){
         $photo = ImageUpload::imageUpload($request->photo,200,200,'Apartment/');
         $apartment = Apartment::create([
@@ -114,7 +120,8 @@ class ApartmentsController extends Controller
             ]);
         }
     }
-    /**
+
+        /**
      * publish an apartment from  to apartments table
      */
     /*public function publish($id){
@@ -186,5 +193,4 @@ class ApartmentsController extends Controller
             ]);
         }
     }*/
-
 }

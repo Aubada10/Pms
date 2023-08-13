@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ShopDraft;
-use App\Models\Shops;
+use App\Models\Shop;
 
-class ShopsDraftController extends Controller
+class ShopController extends Controller
 {
     /**
      * create shop draft
      */
+
     public function create(Request $request, $office_id){
         //create
         $shopDraft = ShopDraft::create([
@@ -32,7 +33,13 @@ class ShopsDraftController extends Controller
             'data' => $shopDraft
         ]);
         }
-
+        public function index(){
+            $shops=Shop::all();
+            return response()->json([
+                'status'=>true,
+                'data'=>$shops
+            ]);
+        }
     public function update(Request $request, $id){
         if(ShopDraft::where([
             'user_id' => 1, /*auth()->user()->id*/
@@ -114,7 +121,7 @@ class ShopsDraftController extends Controller
         $shopDraft = ShopDraft::find($id);
         if($shopDraft->type === 'renting'){
             if($shopDraft->size != null && $shopDraft->location != null && $shopDraft->price !=null && $shopDraft->property == null && $shopDraft->renting_period != null && $shopDraft->contact_information != null && $shopDraft->photo != null){
-                $shop = Shops::create([
+                $shop = Shop::create([
                     'photo' => $shopDraft->photo,
                     'size' => $shopDraft->size ,
                     'location' => $shopDraft->location ,
@@ -140,7 +147,7 @@ class ShopsDraftController extends Controller
             ]);
         }else{
             if($shopDraft->size != null && $shopDraft->location != null && $shopDraft->price !=null && $shopDraft->property != null && $shopDraft->renting_period == null && $shopDraft->contact_information != null && $shopDraft->photo != null){
-                $shop = Shops::create([
+                $shop = Shop::create([
                     'photo' => $shopDraft->photo,
                     'size' => $shopDraft->size ,
                     'location' => $shopDraft->location ,

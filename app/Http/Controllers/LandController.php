@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Apartment;
+use App\Models\Land;
 use Illuminate\Http\Request;
 
-class ApartmentController extends Controller
+class LandController extends Controller
 {
     public function index(){
-        $apartments=Apartment::all();
+        $lands=Land::all();
         return response()->json([
             'status'=>true,
-            'data'=>$apartments
+            'data'=>$lands
         ]);
     }
 }

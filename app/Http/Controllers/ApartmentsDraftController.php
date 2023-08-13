@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ApartmentDraft;
-use App\Models\Apartments;
+use App\Models\Apartment;
 use App\Models\FollowOffice;
 use App\Models\Notification;
 use App\Models\Office;
@@ -161,7 +161,7 @@ class ApartmentsDraftController extends Controller
         if($office->id == $apartmentDraft->office_id){
             if($apartmentDraft->type === 'renting'){
                 if($apartmentDraft->photo != null && $apartmentDraft->size != null && $apartmentDraft->location != null && $apartmentDraft->price != null && $apartmentDraft->view != null && $apartmentDraft->room_number != null && $apartmentDraft->bathrooms != null && $apartmentDraft->cladding != null && $apartmentDraft->floor != null && $apartmentDraft->property == null && $apartmentDraft->renting_period != null && $apartmentDraft->contact_information != null ){
-                    $apartment = Apartments::create([
+                    $apartment = Apartment::create([
                         'photo' => $apartmentDraft->photo,
                         'size' => $apartmentDraft->size,
                         'location' => $apartmentDraft->location,
@@ -202,7 +202,7 @@ class ApartmentsDraftController extends Controller
                 ]);
             }else{
                 if($apartmentDraft->photo != null && $apartmentDraft->size != null && $apartmentDraft->location != null && $apartmentDraft->price != null && $apartmentDraft->view != null && $apartmentDraft->room_number != null && $apartmentDraft->bathrooms != null && $apartmentDraft->cladding != null && $apartmentDraft->floor != null && $apartmentDraft->property != null && $apartmentDraft->renting_period == null && $apartmentDraft->contact_information != null ){
-                    $apartment = Apartments::create([
+                    $apartment = Apartment::create([
                         'photo' => $apartmentDraft->photo,
                         'size' => $apartmentDraft->size,
                         'location' => $apartmentDraft->location,
