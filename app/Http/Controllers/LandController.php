@@ -15,4 +15,12 @@ class LandController extends Controller
             'data'=>$lands
         ]);
     }
+    public function destroy(Land $land)
+    {
+        $land->delete();
+        return response()->json([
+            'status'=>'success',
+            'message'=>'the user deleted successfully'
+        ]);
+    }
 }

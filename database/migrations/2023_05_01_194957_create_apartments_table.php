@@ -33,6 +33,7 @@ return new class extends Migration
             $table->float('rating')->default(0);
             $table->string('contact_information');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -17,14 +17,11 @@ class CheckAdminRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-        dd([auth()->user(),auth()->user()->role]);
+        dd(auth()->check());
         if (auth()->check() && auth()->user()->role == 'Admin') {
             return $next($request);
         }
-        // if(!auth()->check())
         abort(403, 'Unauthorized action.');
-        // if(auth()->user()->role == 'User')
-        // abort(403, 'you are just a user.');
     }
 
 }

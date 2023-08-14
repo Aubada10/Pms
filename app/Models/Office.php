@@ -9,10 +9,11 @@ use App\Models\Shop;
 use App\Models\ApartmentDraft;
 use App\Models\ShopDraft;
 use App\Models\Land;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Office extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
 
     protected $fillable = [

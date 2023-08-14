@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('phone_number');
             $table->float('rating')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

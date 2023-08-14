@@ -92,6 +92,14 @@ class ShopController extends Controller
             ]);
         }
     }
+    public function destroy(Shop $shop)
+    {
+        $shop->delete();
+        return response()->json([
+            'status'=>'success',
+            'message'=>'the user deleted successfully'
+        ]);
+    }
 
     public function show($id){
 

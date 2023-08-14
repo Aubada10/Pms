@@ -8,12 +8,11 @@ use App\Http\Controllers\Auth\ConfirmCodeController;
 use App\Http\Controllers\Auth\ForgetPasswordController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\UserController;
-use App\Http\Controllers\Dashboard\LandController;
-use App\Http\Controllers\Dashboard\ShopController;
+use App\Http\Controllers\LandController;
+use App\Http\Controllers\ShopController;
 use App\Http\Controllers\Dashboard\SettingController;
-use App\Http\Controllers\Dashboard\ApartmentController;
+use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\OfficeController;
-use App\Http\Controllers\Dashboard\OfficeManagementController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -43,9 +42,10 @@ Route::post('/password/reset_password',[ResetPasswordController::class,'reset_pa
 Route::middleware(['auth:sanctum'])->group(function() {
     Route::post('/logout',[AuthController::class,'logout']);
 });
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['admin','auth:sanctum']], function () {
     //Route::get('/dashboard/counts',[HomeController::class,'index']);
     //Route::get('/dashboard/users',[UsersController::class,'get_users']);
+    Route::post('/dashboard/settings/{id}',[SettingController::class,'edit']);
     Route::get('/dashboard/settings',[SettingController::class,'index']);
 
 });
@@ -58,5 +58,7 @@ Route::resource('/offices', OfficeController::class);
 
 Route::get('/dashboard/counts',[HomeController::class,'index']);
 //Route::get('/dashboard/users',[HomeController::class,'get_users']);
-Route::post('/dashboard/settings/{id}',[SettingController::class,'edit']);
-//Route::get('/dashboard/settings',[SettingController::class,'index']);
+//Route::get('/dashboard/settings',[SettingController::class,'index'])->middleware('auth:sanctum');
+Route::get('/dashboard/lands-for-user/{id}',[UserController::class,'lands_for_user']);
+Route::get('/dashboard/shops-for-user/{id}',[UserController::class,'shops_for_user']);
+Route::get('/dashboard/apartments-for-user/{id}',[UserController::class,'apartments_for_user']);

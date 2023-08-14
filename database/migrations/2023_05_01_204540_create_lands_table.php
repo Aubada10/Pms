@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('property')->nullable();
             $table->string('contact_information');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

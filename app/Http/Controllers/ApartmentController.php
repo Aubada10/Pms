@@ -120,6 +120,14 @@ class ApartmentController extends Controller
             ]);
         }
     }
+    public function destroy(Apartment $apartment)
+    {
+        $apartment->delete();
+        return response()->json([
+            'status'=>'success',
+            'message'=>'the user deleted successfully'
+        ]);
+    }
 
         /**
      * publish an apartment from  to apartments table

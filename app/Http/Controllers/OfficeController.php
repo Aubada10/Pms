@@ -75,6 +75,14 @@ class OfficeController extends Controller
             ]);
         }
     }
+    public function destroy(Office $office)
+    {
+        $office->delete();
+        return response()->json([
+            'status'=>'success',
+            'message'=>'the user deleted successfully'
+        ]);
+    }
 
     /**
      * show a specific office by sending the id of it
