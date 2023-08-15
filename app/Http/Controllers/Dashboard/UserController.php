@@ -32,25 +32,25 @@ class UserController extends Controller
             'data'=>$user
         ]);
     }
-    public function lands_for_user(User $user){
-        $lands=$user->lands();
+    public function lands_for_user($id){
+        $user=User::where('id','=',$id)->with('lands')->first();
+        $lands=$user->lands;
         return response()->json([
             'status'=>'true',
             'data'=>$lands
         ]);
     }
-    public function shops_for_user(User $user){
-        $shops=$user->shops();
+    public function shops_for_user($id){
+        $user=User::where('id','=',$id)->with('shops')->first();
+        $shops=$user->shops;
         return response()->json([
             'status'=>'true',
             'data'=>$shops
         ]);
     }
     public function apartments_for_user($id){
-        $user=User::where('id','=',$id)->with('apartments')->get();
-        dd($user);
-    $apartments=$user->apartments();
-
+        $user=User::where('id','=',$id)->with('apartments')->first();
+    $apartments=$user->apartments;
     return response()->json([
         'status'=>'true',
         'data'=>$apartments
